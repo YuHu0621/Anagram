@@ -1,50 +1,41 @@
 import java.io.*;
 
-/**
- * WordList class is a fileparser class that read a txt file and stores all the word into a Dictionary array
- * @author yuhu
- *
- */
-public class WordList {
-	public static final int MAXWORDS = 100000;
-	public static final int MAXWORDLEN = 30;
+public class WordList implements UsefulConstants {
 	static Word[] Dictionary = new Word[MAXWORDS];
-	static int totalWords = 0;
+	static int totWords=0;
 
-	@SuppressWarnings("resource")
 	static void ReadDict (String f) {
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream (f);
 		}
 		catch (FileNotFoundException fnfe) {
-			System.err.println("Cannot open the file of words '" + f + "'");
+			e.println("Cannot open the file of words '" + f + "'");
 			throw new RuntimeException();
 		}
-		System.err.println ("reading dictionary...");
+		e.println ("reading dictionary...");
 		
-		char word[] = new char[MAXWORDLEN];
+		char buffer[] = new char[MAXWORDLEN];
 		String s;
-		int r = 0;
-		while (r!=-1) {
-			int wordLen = 0;
+		int r =0;
+		while (r!=EOF) {
+			int i = 0;
 			try {
 				// read a word in from the word file
-				while ((r=fis.read()) != -1 ) {
-					if ( r == '\n' ) 
-						break;
-					word[wordLen++] = (char) r;
-					
+				while ( (r=fis.read()) != EOF ) {
+					if ( r == '\n' ) break;
+					buffer[i++] = (char) r;
 				}
 			} catch (IOException ioe) {
-				System.err.println("Cannot read the file of words ");
+				e.println("Cannot read the file of words ");
 				throw new RuntimeException();
 			}
-			s = new String(word,0,wordLen);
-			Dictionary[totalWords] = new Word(s);
-			totalWords++;
+			
+			s = new String(buffer,0,i);
+			Dictionary[totWords] = new Word(s);
+			totWords++;
 		}
 		
-		System.err.println("main dictionary has " + totalWords + " entries.");
+		e.println("main dictionary has " + totWords + " entries.");
 	}
 }

@@ -1,20 +1,25 @@
 
+/**
+ * Word class stores information for every word
+ * including the number of each letter in a word, the number of letters in a word, and the word itself 
+ * @author yuhu
+ *
+ */
 public class Word  {
-	int count[] = new int[26];  // count of each letter in the word
-	int total;  // number of letters in the word
-	String aword;  // the word
+	 int count[] = new int[26];  // count of each letter in the word
+	 int wordLen;  // number of letters in the word
+	 String aword;  // the word
 
 	public Word(String s) { // construct an entry from a string
 		int ch;
 		aword = s;
-		total = 0;
+		wordLen = 0;
 		s = s.toLowerCase();
-		for (int i = 'a'; i <= 'z'; i++) count[i-'a'] = 0;
-
+		
 		for (int i = s.length()-1; i >= 0; i--) {
 			ch = s.charAt(i) - 'a';
 			if (ch >= 0 && ch < 26) {
-				total++;
+				wordLen++;
 				count[ch]++;
 			}
 		}
@@ -32,10 +37,12 @@ public class Word  {
 		if ( !(containsLetter(LeastCommonIndex) ) &&  (t.containsLetter(LeastCommonIndex)) )
 			return -1;
 		
-		if ( t.total != total )
-			return (t.total - total);
+		if ( t.wordLen != wordLen )
+			return (t.wordLen - wordLen);
 		
 		return (aword).compareTo(t.aword);
 	}
 }
+
+
 

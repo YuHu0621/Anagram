@@ -34,3 +34,5 @@ All the methods in anagram class is changed from static to non-static because al
 
 WordList is added a constructor that passes in the name of the file.
 
+Renamed getIndex() in WordList (which takes in an index and returns a word) to getWord()
+

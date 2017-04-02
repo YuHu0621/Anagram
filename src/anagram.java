@@ -8,12 +8,17 @@
 
 public class anagram {
 
-	static WordList Dictionary;
-	static Word[] Candidate;
+	public static WordList Dictionary;
+	public static Word[] Candidate;
 	private int MinimumLength;
 	private static int totCandidates = 0;
-	Word anag;
+	public Word anag;
 
+	/**
+	 * Constructor for anagram that only takes in a string
+	 * Uses 3 as the minimum length and words.txt as the dictionary file
+	 * @param a word to find anagrams of
+	 */
 	public anagram(String a) {
 		anag = new Word(a);
 		MinimumLength = 3;
@@ -21,6 +26,12 @@ public class anagram {
 		Candidate = new Word[WordList.MAXWORDS];
 	}
 
+	/**
+	 * Constructor for anagram that only takes in a string and minLength
+	 * Uses words.txt as the dictionary file
+	 * @param a word to find anagrams of
+	 * @param minLen minimum length of an anagram
+	 */
 	public anagram(String a, int minLen) {
 		anag = new Word(a);
 		MinimumLength = minLen;
@@ -28,6 +39,13 @@ public class anagram {
 		Candidate = new Word[WordList.MAXWORDS];
 	}
 
+	/**
+	 * Constructor for anagram that takes in a string, minLength,
+	 * and dictionary file
+	 * @param a word to find anagrams of
+	 * @param minLen minimum length of an anagram
+	 * @param file dictionary file
+	 */
 	public anagram(String a, int minLen, String file) {
 		anag = new Word(a);
 		MinimumLength = minLen;
@@ -35,6 +53,11 @@ public class anagram {
 		Candidate = new Word[WordList.MAXWORDS];
 	}
 
+	/**
+	 * Main method which takes in an argument and creates an object of anagram
+	 * using the appropriate constructor
+	 * @param argv
+	 */
 	public static void main(String[] argv) {
 		if (argv.length < 1 || argv.length > 3) {
 			System.err.println("Usage: java anagram  string-to-anagram " + "[min-len [word-file]]");
@@ -234,7 +257,7 @@ public class anagram {
 
 	/**
 	 * Get the least common letter in the MasterCount array that stores the
-	 * number of each letterl
+	 * number of each letter
 	 * 
 	 * @param MasterCount
 	 *            the number of each letter in all the candidates

@@ -20,6 +20,7 @@ public class WordList {
 	}
 	@SuppressWarnings("resource")
 	static void ReadDict (String f) {
+
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream (f);

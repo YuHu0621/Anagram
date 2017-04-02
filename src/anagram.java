@@ -12,9 +12,10 @@ public class anagram {
 	static Word[] Candidate;
 	static int MinimumLength = 3;
 	private static int totCandidates = 0;
-
+	Word anag;
 	public anagram(String f){
-		Dictionary = new WordList(f);
+		anag = new Word(f);
+		Dictionary = new WordList("words.txt");
 		Candidate = new Word[WordList.MAXWORDS];
 	}
 	
@@ -26,13 +27,11 @@ public class anagram {
 
 		if (argv.length >= 2)
 			MinimumLength = Integer.parseInt(argv[1]);
-
-		// word filename is optional 3rd argument
-	//	ReadDict(argv.length == 3 ? argv[2] : "words.txt");
+	
 		anagram myAnagram = new anagram(argv[0]);
-		myAnagram.DoAnagrams(argv[0]);
-		//DoAnagrams(argv[0]);
+		myAnagram.DoAnagrams();
 	}
+	
 
 	/**
 	 * DoAnagram method finds matching word in the dictionary that is the
@@ -42,18 +41,16 @@ public class anagram {
 	 * @param anag
 	 *            the input string
 	 */
-	static void DoAnagrams(String anag) {
-		Word myAnagram = new Word(anag);
-
-		getCandidates(myAnagram);
+	public void DoAnagrams() {
+		getCandidates(anag);
 		PrintCandidate();
 
-		int RootIndexEnd = sortCandidates(myAnagram);
+		int RootIndexEnd = sortCandidates(anag);
 
-		System.out.println("Anagrams of " + anag + ":");
-		FindAnagram(myAnagram, new String[50], 0, 0, RootIndexEnd);
+		System.out.println("Anagrams of " + anag.aword + ":");
+		FindAnagram(anag, new String[50], 0, 0, RootIndexEnd);
 
-		System.out.println("----" + anag + "----");
+		System.out.println("----" + anag.aword + "----");
 	}
 
 	/**
@@ -62,7 +59,7 @@ public class anagram {
 	 * @param w
 	 *            input word
 	 */
-	static void getCandidates(Word w) {
+	public void getCandidates(Word w) {
 		totCandidates = 0;
 		for (int i = 0; i < Dictionary.totalWords; i++)
 			if (isCandidate(w, Dictionary.getIndex(i)))
@@ -79,7 +76,7 @@ public class anagram {
 	 * @return Return true if Word w is a candidate anagram, return false
 	 *         otherwise
 	 */
-	private static boolean isCandidate(Word target, Word w) {
+	private boolean isCandidate(Word target, Word w) {
 		return isWord(w) && validLength(target, w) && (fewerOfEachLetter(target, w));
 	}
 
@@ -94,7 +91,7 @@ public class anagram {
 	 * @return return true if the Word w has a valid length such that it's a
 	 *         candidate of the anagram of target.
 	 */
-	private static boolean validLength(Word target, Word w) {
+	private boolean validLength(Word target, Word w) {
 		return w.wordLen + MinimumLength <= target.wordLen || w.wordLen == target.wordLen;
 	}
 
@@ -105,7 +102,7 @@ public class anagram {
 	 *            the word parsed from the file
 	 * @return return true if Word w is a word
 	 */
-	private static boolean isWord(Word w) {
+	private boolean isWord(Word w) {
 		return w.wordLen >= MinimumLength;
 	}
 
@@ -119,7 +116,7 @@ public class anagram {
 	 * @return return true if Word w has fewer of each letter than the target
 	 *         Word target
 	 */
-	static boolean fewerOfEachLetter(Word target, Word w) {
+	 private boolean fewerOfEachLetter(Word target, Word w) {
 		for (int i = 25; i >= 0; i--) {
 			if (w.count[i] > target.count[i])
 				return false;
@@ -130,7 +127,7 @@ public class anagram {
 	/**
 	 * Print all the candidates of the input word
 	 */
-	static void PrintCandidate() {
+	 private void PrintCandidate() {
 		System.out.println("Candiate words:");
 		for (int i = 0; i < totCandidates; i++)
 			System.out.print(Candidate[i].aword + ", " + ((i % 4 == 3) ? "\n" : " "));
@@ -147,7 +144,7 @@ public class anagram {
 	 * @param StartAt
 	 * @param EndAt
 	 */
-	static void FindAnagram(Word anag, String WordArray[], int Level, int StartAt, int EndAt) {
+	 private void FindAnagram(Word anag, String WordArray[], int Level, int StartAt, int EndAt) {
 		
 		Word WordToPass = new Word("");
 		for (int i = StartAt; i < EndAt; i++) {
@@ -181,7 +178,7 @@ public class anagram {
 	 * @param candidate the candidate word from the parsed file
 	 * @return return true if the word candidate is a valid candidate of word anag
 	 */
-	private static boolean validCandidate(Word anag, Word candidate) {
+	private boolean validCandidate(Word anag, Word candidate) {
 		
 		for (int j = 25; j >= 0; j--){
 				if (anag.count[j] < candidate.count[j]){	
@@ -199,7 +196,7 @@ public class anagram {
 	 *            the anagram
 	 * @return return RootIndex after the Candidates are sorted
 	 */
-	static int sortCandidates(Word anag) {
+	private int sortCandidates(Word anag) {
 		int leastCommonLetter = getLeastCommonLetter();
 		quickSort(0, totCandidates - 1, leastCommonLetter);
 		return getRootIndex(leastCommonLetter);
@@ -213,7 +210,7 @@ public class anagram {
 	 *            the number of each letter in all the candidates
 	 * @return return the least common letter in the Candidates
 	 */
-	private static int getLeastCommonLetter() {
+	private int getLeastCommonLetter() {
 		int[] MasterCount = totalLetterCount();
 		int min = WordList.MAXWORDS * 5;
 		int leastCommonLetter = 25;
@@ -233,7 +230,7 @@ public class anagram {
 	 * @return return an array that stores the count of all the letter the
 	 *         candidates have
 	 */
-	private static int[] totalLetterCount() {
+	private int[] totalLetterCount() {
 		int[] MasterCount = new int[26];
 		for (int ind = totCandidates - 1; ind >= 0; ind--) {
 			for (int l = 25; l >= 0; l--) {
@@ -252,7 +249,7 @@ public class anagram {
 	 * @return return the index of the first candidate that contains
 	 *         LeastCommonLetter
 	 */
-	private static int getRootIndex(int LeastCommonLetter) {
+	private int getRootIndex(int LeastCommonLetter) {
 		int rootIndexEnd = 0;
 		while (rootIndexEnd < totCandidates) {
 			if (Candidate[rootIndexEnd++].containsLetter(LeastCommonLetter)) {
@@ -272,7 +269,7 @@ public class anagram {
 	 * @param LeastCommonLetter
 	 *            the least common letter among Candidates
 	 */
-	static void quickSort(int lo, int hi, int LeastCommonLetter) {
+	private void quickSort(int lo, int hi, int LeastCommonLetter) {
 		// standard quicksort from any algorithm book
 		if (lo >= hi)
 			return;
@@ -288,7 +285,7 @@ public class anagram {
 	 * @param LeastCommonLetter the least common letter among Candidates
 	 * @return return the index of the the new partition number
 	 */
-	private static int partition(int hi, int lo, int LeastCommonLetter) {
+	private int partition(int hi, int lo, int LeastCommonLetter) {
 		int last = hi;
 		Word pivot = Candidate[hi];
 		for (int i = hi + 1; i <= lo; i++) { /* partition */
@@ -311,9 +308,12 @@ public class anagram {
 	 * @param d2
 	 *            index d2
 	 */
-	static void swap(int d1, int d2) {
+	private void swap(int d1, int d2) {
 		Word tmp = Candidate[d1];
 		Candidate[d1] = Candidate[d2];
 		Candidate[d2] = tmp;
 	}
+	
+	
+
 }

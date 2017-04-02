@@ -27,6 +27,8 @@ In the partition method, we extract a boolean variable lessThanPivot out of the 
 4/2 yu-edit
 We think anagram should not be a sub class of WordList. Instead, they should be in a composition relation. So anagram class contains a WordList object named Dictionary. In the constructor of anagram, a new WorldList Object is initiated. 
 
+we add three constructos for anagram so that minimumLength and file name can be optional input for the user. The default minimumLength is 3 and the defult file name is words.txt
+
 All the methods in anagram class is changed from static to non-static because all the method is performed on one anagram object specifically. We remove the parameter of DoAnagrams. Instead, a global variable - a Word object anag is initaited at the constructor. 
 
 WordList is added a constructor that passes in the name of the file.

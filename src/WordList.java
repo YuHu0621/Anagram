@@ -8,16 +8,17 @@ import java.io.*;
 public class WordList {
 	public static final int MAXWORDS = 100000;
 	public static final int MAXWORDLEN = 30;
-	static Word[] Dictionary = new Word[MAXWORDS];
-	static int totalWords = 0;
+	public static Word[] Dictionary = new Word[MAXWORDS];
+	public static int totalWords = 0;
 
 	public WordList(String s){
 		ReadDict(s);
 	}
 	
-	public Word getIndex(int i){
+	public Word getWord(int i){
 		return Dictionary[i];
 	}
+	
 	@SuppressWarnings("resource")
 	static void ReadDict (String f) {
 

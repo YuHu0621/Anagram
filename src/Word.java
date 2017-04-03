@@ -14,17 +14,16 @@ public class Word  {
 	  * @param s
 	  */
 	 public Word(String s) { // construct an entry from a string
-		int ch;
-		aword = s.toLowerCase();
-		wordLen = 0;
-		s = s.toLowerCase();
+		 String str = s.toLowerCase();
+		 aword = str;
+		 wordLen = 0;
 		
-		for (int i = s.length()-1; i >= 0; i--) {
-			ch = s.charAt(i) - 'a';
-			if (ch >= 0 && ch < 26) {
-				wordLen++;
-				count[ch]++;
-			}
+		 for (int i = 0; i < str.length(); i++) {
+			 int ch = str.charAt(i) - 'a';
+			 if (ch >= 0 && ch < 26) {
+				 wordLen++;
+				 count[ch]++;
+			 }
 		}
 	}
 	
@@ -54,7 +53,10 @@ public class Word  {
 	 */
 	public void setCount(int index, int newValue)
 	{
+		int diff = newValue - count[index];
 		count[index] = newValue;
+		wordLen += diff;
+		//assertWellformed
 	}
 
 	/**
@@ -65,15 +67,7 @@ public class Word  {
 	{
 		return wordLen;
 	}
-	
-	/**
-	 * Setter method to set the new length of a word
-	 * @param newLength
-	 */
-	public void setLength(int newLength)
-	{
-		wordLen = newLength;
-	}
+
 	
 	/**
 	 * Getter method to return a string representation of the word
@@ -101,7 +95,8 @@ public class Word  {
 	
 	public boolean wellFormed()
 	{
-		
+		//make sure sum of counts is equal to the wordLength
+		int sumCounts;
 		return false;
 	}
 	

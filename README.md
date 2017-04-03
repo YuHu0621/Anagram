@@ -49,3 +49,11 @@ Made wordLen and aword in Word class private and added getter/setter methods whe
 Fixed an error in totalLetterCount, adding up all counts of all letters instead of setting masterCount to equal each count and overwriting it.
 
 Changed what min in getLeastCommonLetter is to a lower value (30 times the number of total candidates) and changed comment to be more accurate
+
+Renamed PrintCandidates() to printCandidates()
+
+Changed for loops to start from the bottom and go to the end where applicable
+
+Moved ch inside for loop in Word() constructor
+
+Automatically update word length when the count of any letter is changed, deleted if statement in FindAnagram() that did this after

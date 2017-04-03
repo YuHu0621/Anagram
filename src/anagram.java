@@ -6,12 +6,13 @@
  * Anagram is a subclass of a WordList. It parses through a text file of words to find anagram of an input string
  */
 
+//TODO: make candidate an ArrayList instead of an array
 public class Anagram {
 
 	public static WordList dictionary;
-	public static Word[] candidate;
+	private Word[] candidate;
 	private int minimumLength;
-	private static int totCandidates = 0;
+	private int totCandidates = 0;
 	private Word anag;
 
 	/**
@@ -63,7 +64,7 @@ public class Anagram {
 	 */
 	public void DoAnagrams() {
 		getCandidates(anag);
-		PrintCandidate();
+		printCandidate();
 
 		int RootIndexEnd = sortCandidates(anag);
 
@@ -140,7 +141,7 @@ public class Anagram {
 	/**
 	 * Print all the candidates of the input word
 	 */
-	private void PrintCandidate() {
+	private void printCandidate() {
 		System.out.println("Candiate words:");
 		for (int i = 0; i < totCandidates; i++){
 			System.out.print(candidate[i].getString() + ", " + ((i % 4 == 3) ? "\n" : " "));
@@ -167,9 +168,6 @@ public class Anagram {
 				WordArray[Level] = candidate[i].getString();
 				for (int j = 25; j >= 0; j--) {
 					WordToPass.setCount(j, (byte) (anag.getCount(j) - candidate[i].getCount(j)));
-					if (WordToPass.getCount(j) != 0) {
-						WordToPass.setLength(WordToPass.getLength() + WordToPass.getCount(j));
-					}
 				}
 				if (WordToPass.getLength() == 0) {
 					/* Found a series of words! */
@@ -319,7 +317,21 @@ public class Anagram {
 	private boolean wellFormed(Anagram testAnagram) 
 	{
 		//TODO: fill in
-		return false;
+		//check that all indices less than totCandidates in candidate has a value
+		if(totCandidates == 0) {
+			//don't need to do anything
+		}
+		else {
+			for(int i = 0; i < totCandidates; i++) {
+				if(candidate[i] == null) {
+					return false;
+				}
+			}
+		}
+		//TODO: check that all indices greater than totCandidates are null
+		
+		
+		return true;
 	}
 
 }

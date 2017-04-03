@@ -63,10 +63,10 @@ public class Anagram {
 	 * @param anag the input string
 	 */
 	public void DoAnagrams() {
-		getCandidates(anag);
+		generateCandidates();
 		printCandidate();
 
-		int RootIndexEnd = sortCandidates(anag);
+		int RootIndexEnd = sortCandidates();
 
 		System.out.println("Anagrams of " + anag.getString() + ":");
 		FindAnagram(anag, new String[50], 0, 0, RootIndexEnd);
@@ -76,14 +76,15 @@ public class Anagram {
 
 	/**
 	 * Generate anagram candidates of a word and save in candidate[]
-	 * @param w input word
 	 */
-	public Word[] getCandidates(Word w) {
+	public void generateCandidates() {
 		totCandidates = 0;
-		for (int i = 0; i < dictionary.getTotalWords(); i++)
-			if (isCandidate(w, dictionary.getWord(i)))
+		for (int i = 0; i < dictionary.getTotalWords(); i++) {
+			if (isCandidate(dictionary.getWord(i))) {
 				candidate[totCandidates++] = dictionary.getWord(i);
-		return candidate;
+			}
+		}
+	
 	}
 
 	/**
@@ -91,11 +92,10 @@ public class Anagram {
 	 * not necessarily a valid candidate word
 	 * 
 	 * @param w a word in the dictionary
-	 * @param target the input word
 	 * @return true if Word w is a candidate anagram, return false otherwise
 	 */
-	private boolean isCandidate(Word target, Word w) {
-		return isWord(w) && validLength(target, w) && (fewerOfEachLetter(target, w));
+	private boolean isCandidate(Word w) {
+		return isWord(w) && validLength(w) && (fewerOfEachLetter(w));
 	}
 
 	/**
@@ -107,8 +107,8 @@ public class Anagram {
 	 * @return true if the Word w has a valid length such that it's a
 	 *         candidate of the anagram of target.
 	 */
-	private boolean validLength(Word target, Word w) {
-		return w.getLength() + minimumLength <= target.getLength() || w.getLength() == target.getLength();
+	private boolean validLength(Word w) {
+		return w.getLength() + minimumLength <= anag.getLength() || w.getLength() == anag.getLength();
 	}
 
 	/**
@@ -130,9 +130,9 @@ public class Anagram {
 	 * @return true if Word w has fewer of each letter than the target
 	 *         Word target
 	 */
-	private boolean fewerOfEachLetter(Word target, Word w) {
+	private boolean fewerOfEachLetter(Word w) {
 		for (int i = 25; i >= 0; i--) {
-			if (w.getCount(i) > target.getCount(i))
+			if (w.getCount(i) > anag.getCount(i))
 				return false;
 		}
 		return true;
@@ -153,21 +153,21 @@ public class Anagram {
 	/**
 	 * find the anagram of the input word
 	 * 
-	 * @param anag
+	 * @param anagram
 	 * @param WordArray
 	 * @param Level
 	 * @param StartAt
 	 * @param EndAt
 	 */
-	private void FindAnagram(Word anag, String WordArray[], int Level, int StartAt, int EndAt) {
+	private void FindAnagram(Word anagram, String WordArray[], int Level, int StartAt, int EndAt) {
 
 		Word WordToPass = new Word("");
 		for (int i = StartAt; i < EndAt; i++) {
-			boolean valid = validCandidate(anag, candidate[i]);
+			boolean valid = validCandidate(anagram, candidate[i]);
 			if (valid) {
 				WordArray[Level] = candidate[i].getString();
-				for (int j = 25; j >= 0; j--) {
-					WordToPass.setCount(j, (byte) (anag.getCount(j) - candidate[i].getCount(j)));
+				for (int j = 0; j < 26; j++) {
+					WordToPass.setCount(j, (byte) (anagram.getCount(j) - candidate[i].getCount(j)));
 				}
 				if (WordToPass.getLength() == 0) {
 					/* Found a series of words! */
@@ -184,14 +184,14 @@ public class Anagram {
 
 	/**
 	 * Check if Word candidate is a valid anagram candidate for word anag
-	 * @param anag the anagram
+	 * @param anagram the anagram
 	 * @param candidate the candidate word from the parsed file
 	 * @return true if the word candidate is a valid candidate of word anag
 	 */
-	private boolean validCandidate(Word anag, Word candidate) {
+	private boolean validCandidate(Word anagram, Word candidate) {
 
 		for (int j = 25; j >= 0; j--) {
-			if (anag.getCount(j) < candidate.getCount(j)) {
+			if (anagram.getCount(j) < candidate.getCount(j)) {
 				return false;
 			}
 		}
@@ -203,7 +203,7 @@ public class Anagram {
 	 * @param anag the anagram
 	 * @return RootIndex after the candidates are sorted
 	 */
-	private int sortCandidates(Word anag) {
+	private int sortCandidates() {
 		int leastCommonLetter = getLeastCommonLetter();
 		quickSort(0, totCandidates - 1, leastCommonLetter);
 		return getRootIndex(leastCommonLetter);
@@ -314,7 +314,7 @@ public class Anagram {
 	
 	
 	
-	private boolean wellFormed(Anagram testAnagram) 
+	private boolean wellFormed() 
 	{
 		//TODO: fill in
 		//check that all indices less than totCandidates in candidate has a value

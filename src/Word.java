@@ -5,33 +5,35 @@
  *
  */
 public class Word  {
-	 public int count[] = new int[26];  // count of each letter in the word
-	 private int wordLen;  // number of letters in the word
-	 private String aword;  // the word
+	public int count[] = new int[26];  // count of each letter in the word
+	private int wordLen;  // number of letters in the word
+	private String aword;  // the word
 
-	 /**
-	  * Constructor that takes in a string
-	  * @param s
-	  */
-	 public Word(String s) { // construct an entry from a string
-		 String str = s.toLowerCase();
-		 aword = str;
-		 wordLen = 0;
+	/**
+	 * Constructor that takes in a string
+	 * @param s
+	 */
+	public Word(String s) { // construct an entry from a string
+		String str = s.toLowerCase();
+		aword = str;
+		wordLen = 0;
 		
-		 for (int i = 0; i < str.length(); i++) {
-			 int ch = str.charAt(i) - 'a';
-			 if (ch >= 0 && ch < 26) {
-				 wordLen++;
-				 count[ch]++;
-			 }
+		for (int i = 0; i < str.length(); i++) {
+			int ch = str.charAt(i) - 'a';
+			if (ch >= 0 && ch < 26) {
+				wordLen++;
+				count[ch]++;
+			}
 		}
+		assert wellFormed();
+		
 	}
 	
 	/**
-	 * Method to determine if a word contains a specific letter
-	 * @param j letter index
-	 * @return true if this letter is present in the word
-	 */
+	* Method to determine if a word contains a specific letter
+	* @param j letter index
+	* @return true if this letter is present in the word
+	*/
 	public boolean containsLetter(int j){
 		return count[j] != 0;
 	}
@@ -56,7 +58,7 @@ public class Word  {
 		int diff = newValue - count[index];
 		count[index] = newValue;
 		wordLen += diff;
-		//assertWellformed
+		assert wellFormed();
 	}
 
 	/**
@@ -96,7 +98,14 @@ public class Word  {
 	public boolean wellFormed()
 	{
 		//make sure sum of counts is equal to the wordLength
-		int sumCounts;
+		int sumCounts = 0;
+		for(int i = 0; i < count.length; i++) {
+			sumCounts += count[i];
+		}
+		if(sumCounts != wordLen) {
+			return false;
+		}
+		
 		return false;
 	}
 	

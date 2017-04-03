@@ -72,7 +72,7 @@ public class Anagram {
 		int RootIndexEnd = sortCandidates();
 
 		System.out.println("Anagrams of " + anag.getString() + ":");
-		FindAnagram(anag, new String[50], 0, 0, RootIndexEnd);
+		findAnagram(anag, new String[50], 0, 0, RootIndexEnd);
 
 		System.out.println("----" + anag.getString() + "----");
 	}
@@ -164,7 +164,7 @@ public class Anagram {
 	 * @param StartAt
 	 * @param EndAt
 	 */
-	private void FindAnagram(Word anagram, String WordArray[], int Level, int StartAt, int EndAt) {
+	private void findAnagram(Word anagram, String WordArray[], int Level, int StartAt, int EndAt) {
 
 		Word WordToPass = new Word("");
 		for (int i = StartAt; i < EndAt; i++) {
@@ -181,7 +181,7 @@ public class Anagram {
 					}
 					System.out.println();
 				} else if (WordToPass.getLength() >= minimumLength) {
-					FindAnagram(WordToPass, WordArray, Level + 1, i, totCandidates);
+					findAnagram(WordToPass, WordArray, Level + 1, i, totCandidates);
 				}
 			}
 		}

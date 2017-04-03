@@ -154,7 +154,7 @@ public class Anagram {
 	 *            the word that needs to find an anagram
 	 * @param w
 	 *            the word parsed from the file
-	 * @return return true if Word w has fewer of each letter than the target
+	 * @return true if Word w has fewer of each letter than the target
 	 *         Word target
 	 */
 	private boolean fewerOfEachLetter(Word target, Word w) {
@@ -215,13 +215,9 @@ public class Anagram {
 
 	/**
 	 * Check if Word candidate is a valid anagram candidate for word anag
-	 * 
-	 * @param anag
-	 *            the anagram
-	 * @param candidate
-	 *            the candidate word from the parsed file
-	 * @return return true if the word candidate is a valid candidate of word
-	 *         anag
+	 * @param anag the anagram
+	 * @param candidate the candidate word from the parsed file
+	 * @return true if the word candidate is a valid candidate of word anag
 	 */
 	private boolean validCandidate(Word anag, Word candidate) {
 
@@ -234,11 +230,9 @@ public class Anagram {
 	}
 
 	/**
-	 * Sort the Candidates word
-	 * 
-	 * @param anag
-	 *            the anagram
-	 * @return return RootIndex after the Candidates are sorted
+	 * Sort the candidates word
+	 * @param anag the anagram
+	 * @return RootIndex after the candidates are sorted
 	 */
 	private int sortCandidates(Word anag) {
 		int leastCommonLetter = getLeastCommonLetter();
@@ -249,19 +243,17 @@ public class Anagram {
 	/**
 	 * Get the least common letter in the MasterCount array that stores the
 	 * number of each letter
-	 * 
-	 * @param MasterCount
-	 *            the number of each letter in all the candidates
-	 * @return return the least common letter in the Candidates
+	 * @return the least common letter in the candidates
 	 */
 	private int getLeastCommonLetter() {
-		int[] MasterCount = totalLetterCount();
-		int min = WordList.MAXWORDS * 5;
+		int[] letterCount = totalLetterCount();
+		//30 maximum length of words, total number of words
+		int min = totCandidates * 30;
 		int leastCommonLetter = 25;
 		for (int l = 25; l >= 0; l--) {
-			if (MasterCount[l] != 0 && MasterCount[l] < min) {
+			if (letterCount[l] != 0 && letterCount[l] < min) {
 				// update leastCommonLetter
-				min = MasterCount[l];
+				min = letterCount[l];
 				leastCommonLetter = l;
 			}
 		}
@@ -269,34 +261,32 @@ public class Anagram {
 	}
 
 	/**
-	 * Get the count of all the letter of the Candidates
-	 * 
-	 * @return return an array that stores the count of all the letter the
+	 * Get the count of all the letter of the candidates
+	 * @return an array that stores the count of all the letter the
 	 *         candidates have
 	 */
 	private int[] totalLetterCount() {
-		int[] MasterCount = new int[26];
-		for (int ind = totCandidates - 1; ind >= 0; ind--) {
+		int[] masterCount = new int[26];
+		for (int i = totCandidates - 1; i >= 0; i--) {
 			for (int l = 25; l >= 0; l--) {
-				MasterCount[l] = candidate[ind].count[l];
+				masterCount[l] += candidate[i].getCount(l);
 			}
 		}
-		return MasterCount;
+		return masterCount;
 	}
 
 	/**
-	 * Get the index of the first candidate in the Candidates array that
+	 * Get the index of the first candidate in the candidates array that
 	 * contains the leastCommonLetter
 	 * 
-	 * @param LeastCommonLetter
-	 *            the least common letter among the candidates
-	 * @return return the index of the first candidate that contains
+	 * @param leastCommonLetter the least common letter among the candidates
+	 * @return the index of the first candidate that contains
 	 *         LeastCommonLetter
 	 */
-	private int getRootIndex(int LeastCommonLetter) {
+	private int getRootIndex(int leastCommonLetter) {
 		int rootIndexEnd = 0;
 		while (rootIndexEnd < totCandidates) {
-			if (candidate[rootIndexEnd++].containsLetter(LeastCommonLetter)) {
+			if (candidate[rootIndexEnd++].containsLetter(leastCommonLetter)) {
 				break;
 			}
 		}
@@ -306,12 +296,9 @@ public class Anagram {
 	/**
 	 * Sort the candidates based on the LeastCommonLetter
 	 * 
-	 * @param lo
-	 *            the left index
-	 * @param hi
-	 *            the right index
-	 * @param LeastCommonLetter
-	 *            the least common letter among Candidates
+	 * @param lo the left index
+	 * @param hi the right index
+	 * @param LeastCommonLetter the least common letter among candidates
 	 */
 	private void quickSort(int lo, int hi, int LeastCommonLetter) {
 		// standard quicksort from any algorithm book
@@ -325,13 +312,10 @@ public class Anagram {
 	/**
 	 * The partition function is a helper method for quickSort
 	 * 
-	 * @param hi
-	 *            the high index
-	 * @param lo
-	 *            the low index
-	 * @param LeastCommonLetter
-	 *            the least common letter among Candidates
-	 * @return return the index of the the new partition number
+	 * @param hi the high index
+	 * @param lo the low index
+	 * @param LeastCommonLetter the least common letter among candidates
+	 * @return the index of the the new partition number
 	 */
 	private int partition(int hi, int lo, int LeastCommonLetter) {
 		int last = hi;
@@ -348,12 +332,10 @@ public class Anagram {
 	}
 
 	/**
-	 * Swap the position of two words at index d1 and d2 in the Candidates array
+	 * Swap the position of two words at index d1 and d2 in the candidates array
 	 * 
-	 * @param d1
-	 *            index d1
-	 * @param d2
-	 *            index d2
+	 * @param d1 index d1
+	 * @param d2 index d2
 	 */
 	private void swap(int d1, int d2) {
 		Word tmp = candidate[d1];
@@ -365,6 +347,7 @@ public class Anagram {
 	
 	private boolean wellFormed(Anagram testAnagram) 
 	{
+		//TODO: fill in
 		return false;
 	}
 

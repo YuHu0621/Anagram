@@ -45,3 +45,7 @@ Renamed anagram class to Anagram
 Made first letter of variables in Anagram lowercase
 
 Made wordLen and aword in Word class private and added getter/setter methods where necessary.
+
+Fixed an error in totalLetterCount, adding up all counts of all letters instead of setting masterCount to equal each count and overwriting it.
+
+Changed what min in getLeastCommonLetter is to a lower value (30 times the number of total candidates) and changed comment to be more accurate

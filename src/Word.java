@@ -9,9 +9,13 @@ public class Word  {
 	 private int wordLen;  // number of letters in the word
 	 private String aword;  // the word
 
-	public Word(String s) { // construct an entry from a string
+	 /**
+	  * Constructor that takes in a string
+	  * @param s
+	  */
+	 public Word(String s) { // construct an entry from a string
 		int ch;
-		aword = s;
+		aword = s.toLowerCase();
 		wordLen = 0;
 		s = s.toLowerCase();
 		
@@ -94,6 +98,11 @@ public class Word  {
 		return (aword).compareTo(t.aword);
 	}
 	
+	public boolean wellFormed()
+	{
+		
+		return false;
+	}
 	
 }
 

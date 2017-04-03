@@ -25,6 +25,7 @@ public class Anagram {
 		minimumLength = 3;
 		dictionary = new WordList("words.txt");
 		candidate = new Word[WordList.MAXWORDS];
+		assert wellFormed();
 	}
 
 	/**
@@ -38,6 +39,7 @@ public class Anagram {
 		minimumLength = minLen;
 		dictionary = new WordList("words.txt");
 		candidate = new Word[WordList.MAXWORDS];
+		assert wellFormed();
 	}
 
 	/**
@@ -52,6 +54,7 @@ public class Anagram {
 		minimumLength = minLen;
 		dictionary = new WordList(file);
 		candidate = new Word[WordList.MAXWORDS];
+		assert wellFormed();
 	}
 
 
@@ -81,9 +84,11 @@ public class Anagram {
 		totCandidates = 0;
 		for (int i = 0; i < dictionary.getTotalWords(); i++) {
 			if (isCandidate(dictionary.getWord(i))) {
-				candidate[totCandidates++] = dictionary.getWord(i);
+				candidate[totCandidates] = dictionary.getWord(i);
+				totCandidates++;
 			}
 		}
+		assert wellFormed();
 	
 	}
 
@@ -206,6 +211,7 @@ public class Anagram {
 	private int sortCandidates() {
 		int leastCommonLetter = getLeastCommonLetter();
 		quickSort(0, totCandidates - 1, leastCommonLetter);
+		assert wellFormed();
 		return getRootIndex(leastCommonLetter);
 	}
 
@@ -317,6 +323,13 @@ public class Anagram {
 	private boolean wellFormed() 
 	{
 		//TODO: fill in
+		//check that dictionary and candidate are not null
+		if(dictionary == null) {
+			return false;
+		}
+		if(candidate == null) {
+			return false;
+		}
 		//check that all indices less than totCandidates in candidate has a value
 		if(totCandidates == 0) {
 			//don't need to do anything
@@ -329,6 +342,7 @@ public class Anagram {
 			}
 		}
 		//TODO: check that all indices greater than totCandidates are null
+		
 		
 		
 		return true;

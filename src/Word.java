@@ -29,6 +29,15 @@ public class Word  {
 		
 	}
 	
+	public Word() {
+		aword = "";
+		wordLen = 0;
+		for (int i = 0; i < 26; i++) {
+			count[i] = 0;
+		}
+		assert wellFormed();
+	}
+	
 	/**
 	* Method to determine if a word contains a specific letter
 	* @param j letter index
@@ -105,8 +114,10 @@ public class Word  {
 		if(sumCounts != wordLen) {
 			return false;
 		}
+		//TODO: mess with string later
 		
-		return false;
+		
+		return true;
 	}
 	
 }

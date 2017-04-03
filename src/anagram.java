@@ -6,7 +6,7 @@
  * Anagram is a subclass of a WordList. It parses through a text file of words to find anagram of an input string
  */
 
-public class anagram {
+public class Anagram {
 
 	public static WordList Dictionary;
 	public static Word[] Candidate;
@@ -19,7 +19,7 @@ public class anagram {
 	 * Uses 3 as the minimum length and words.txt as the dictionary file
 	 * @param a word to find anagrams of
 	 */
-	public anagram(String a) {
+	public Anagram(String a) {
 		anag = new Word(a);
 		MinimumLength = 3;
 		Dictionary = new WordList("words.txt");
@@ -32,7 +32,7 @@ public class anagram {
 	 * @param a word to find anagrams of
 	 * @param minLen minimum length of an anagram
 	 */
-	public anagram(String a, int minLen) {
+	public Anagram(String a, int minLen) {
 		anag = new Word(a);
 		MinimumLength = minLen;
 		Dictionary = new WordList("words.txt");
@@ -46,7 +46,7 @@ public class anagram {
 	 * @param minLen minimum length of an anagram
 	 * @param file dictionary file
 	 */
-	public anagram(String a, int minLen, String file) {
+	public Anagram(String a, int minLen, String file) {
 		anag = new Word(a);
 		MinimumLength = minLen;
 		Dictionary = new WordList(file);
@@ -69,14 +69,14 @@ public class anagram {
 		if (argv.length >= 2)
 			minLen = Integer.parseInt(argv[1]);
 
-		anagram myAnagram;
+		Anagram myAnagram;
 		if (argv.length == 1) {
-			myAnagram = new anagram(argv[0]);
+			myAnagram = new Anagram(argv[0]);
 
 		} else if (argv.length == 2) {
-			myAnagram = new anagram(argv[0], minLen);
+			myAnagram = new Anagram(argv[0], minLen);
 		} else {
-			myAnagram = new anagram(argv[0], minLen, argv[2]);
+			myAnagram = new Anagram(argv[0], minLen, argv[2]);
 		}
 
 		myAnagram.DoAnagrams();
@@ -368,6 +368,11 @@ public class anagram {
 		Word tmp = Candidate[d1];
 		Candidate[d1] = Candidate[d2];
 		Candidate[d2] = tmp;
+	}
+	
+	private boolean wellFormed(Anagram testAnagram) 
+	{
+		return false;
 	}
 
 }

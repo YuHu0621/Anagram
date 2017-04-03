@@ -23,11 +23,17 @@ public class Word  {
 			}
 		}
 	}
-
+	
+	/**
+	 * Method to determine if a word contains a specific letter
+	 * @param j letter index
+	 * @return true if this letter is present in the word
+	 */
 	public boolean containsLetter(int j){
 		return count[j] != 0;
 	}
 
+	
 	public int MultiFieldCompare(Word t, int LeastCommonIndex)
 	{
 		if ( (containsLetter(LeastCommonIndex) ) &&  !(t.containsLetter(LeastCommonIndex)) )

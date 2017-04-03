@@ -110,7 +110,7 @@ public class anagram {
 	 */
 	public void getCandidates(Word w) {
 		totCandidates = 0;
-		for (int i = 0; i < Dictionary.totalWords; i++)
+		for (int i = 0; i < Dictionary.getTotalWords(); i++)
 			if (isCandidate(w, Dictionary.getWord(i)))
 				Candidate[totCandidates++] = Dictionary.getWord(i);
 	}

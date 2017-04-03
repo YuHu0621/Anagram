@@ -20,7 +20,7 @@ public class WordList {
 	}
 	
 	@SuppressWarnings("resource")
-	static void ReadDict (String f) {
+	public static void ReadDict (String f) {
 
 		FileInputStream fis;
 		try {
@@ -55,5 +55,10 @@ public class WordList {
 		}
 		
 		System.err.println("main dictionary has " + totalWords + " entries.");
+	}
+	
+	public int getTotalWords()
+	{
+		return totalWords;
 	}
 }

@@ -36,3 +36,8 @@ WordList is added a constructor that passes in the name of the file.
 
 Renamed getIndex() in WordList (which takes in an index and returns a word) to getWord()
 
+Added access types to variables in anagrams, Word, and WordList
+
+Replaced references to totalWords in WordList with a getter method in WordList.
+
+

@@ -8,7 +8,7 @@ import java.io.*;
 public class WordList {
 	public static final int MAXWORDS = 100000;
 	public static final int MAXWORDLEN = 30;
-	public static Word[] Dictionary = new Word[MAXWORDS];
+	public static Word[] dictionary = new Word[MAXWORDS];
 	public static int totalWords = 0;
 
 	public WordList(String s){
@@ -16,7 +16,7 @@ public class WordList {
 	}
 	
 	public Word getWord(int i){
-		return Dictionary[i];
+		return dictionary[i];
 	}
 	
 	@SuppressWarnings("resource")
@@ -50,7 +50,7 @@ public class WordList {
 				throw new RuntimeException();
 			}
 			s = new String(word,0,wordLen);
-			Dictionary[totalWords] = new Word(s);
+			dictionary[totalWords] = new Word(s);
 			totalWords++;
 		}
 		

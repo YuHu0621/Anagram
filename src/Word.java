@@ -5,9 +5,9 @@
  *
  */
 public class Word  {
-	 int count[] = new int[26];  // count of each letter in the word
-	 int wordLen;  // number of letters in the word
-	 String aword;  // the word
+	 public int count[] = new int[26];  // count of each letter in the word
+	 private int wordLen;  // number of letters in the word
+	 private String aword;  // the word
 
 	public Word(String s) { // construct an entry from a string
 		int ch;
@@ -32,7 +32,53 @@ public class Word  {
 	public boolean containsLetter(int j){
 		return count[j] != 0;
 	}
+	
+	/**
+	 * Getter to return the count of a letter at a certain index
+	 * @param index of letter
+	 * @return count
+	 */
+	public int getCount(int index) 
+	{
+		return count[index];
+	}
+	
+	/**
+	 * Setter to set the count of a letter to a new value
+	 * @param index of letter
+	 * @param newValue of letter
+	 */
+	public void setCount(int index, int newValue)
+	{
+		count[index] = newValue;
+	}
 
+	/**
+	 * Getter method to return the length of a word
+	 * @return
+	 */
+	public int getLength()
+	{
+		return wordLen;
+	}
+	
+	/**
+	 * Setter method to set the new length of a word
+	 * @param newLength
+	 */
+	public void setLength(int newLength)
+	{
+		wordLen = newLength;
+	}
+	
+	/**
+	 * Getter method to return a string representation of the word
+	 * @return
+	 */
+	public String getString()
+	{
+		return aword;
+	}
 	
 	public int MultiFieldCompare(Word t, int LeastCommonIndex)
 	{
@@ -47,5 +93,7 @@ public class Word  {
 		
 		return (aword).compareTo(t.aword);
 	}
+	
+	
 }
 

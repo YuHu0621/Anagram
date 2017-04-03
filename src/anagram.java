@@ -8,9 +8,9 @@
 
 public class Anagram {
 
-	public static WordList Dictionary;
-	public static Word[] Candidate;
-	private int MinimumLength;
+	public static WordList dictionary;
+	public static Word[] candidate;
+	private int minimumLength;
 	private static int totCandidates = 0;
 	public Word anag;
 
@@ -21,9 +21,9 @@ public class Anagram {
 	 */
 	public Anagram(String a) {
 		anag = new Word(a);
-		MinimumLength = 3;
-		Dictionary = new WordList("words.txt");
-		Candidate = new Word[WordList.MAXWORDS];
+		minimumLength = 3;
+		dictionary = new WordList("words.txt");
+		candidate = new Word[WordList.MAXWORDS];
 	}
 
 	/**
@@ -34,9 +34,9 @@ public class Anagram {
 	 */
 	public Anagram(String a, int minLen) {
 		anag = new Word(a);
-		MinimumLength = minLen;
-		Dictionary = new WordList("words.txt");
-		Candidate = new Word[WordList.MAXWORDS];
+		minimumLength = minLen;
+		dictionary = new WordList("words.txt");
+		candidate = new Word[WordList.MAXWORDS];
 	}
 
 	/**
@@ -48,9 +48,9 @@ public class Anagram {
 	 */
 	public Anagram(String a, int minLen, String file) {
 		anag = new Word(a);
-		MinimumLength = minLen;
-		Dictionary = new WordList(file);
-		Candidate = new Word[WordList.MAXWORDS];
+		minimumLength = minLen;
+		dictionary = new WordList(file);
+		candidate = new Word[WordList.MAXWORDS];
 	}
 
 	/**
@@ -87,8 +87,7 @@ public class Anagram {
 	 * anagram of the input string. print out all the matching words that are
 	 * the reordering forms of the input string
 	 * 
-	 * @param anag
-	 *            the input string
+	 * @param anag the input string
 	 */
 	public void DoAnagrams() {
 		getCandidates(anag);
@@ -96,35 +95,31 @@ public class Anagram {
 
 		int RootIndexEnd = sortCandidates(anag);
 
-		System.out.println("Anagrams of " + anag.aword + ":");
+		System.out.println("Anagrams of " + anag.getString() + ":");
 		FindAnagram(anag, new String[50], 0, 0, RootIndexEnd);
 
-		System.out.println("----" + anag.aword + "----");
+		System.out.println("----" + anag.getString() + "----");
 	}
 
 	/**
-	 * Get anagram candidates of a word
-	 * 
-	 * @param w
-	 *            input word
+	 * Generate anagram candidates of a word and save in candidate[]
+	 * @param w input word
 	 */
-	public void getCandidates(Word w) {
+	public Word[] getCandidates(Word w) {
 		totCandidates = 0;
-		for (int i = 0; i < Dictionary.getTotalWords(); i++)
-			if (isCandidate(w, Dictionary.getWord(i)))
-				Candidate[totCandidates++] = Dictionary.getWord(i);
+		for (int i = 0; i < dictionary.getTotalWords(); i++)
+			if (isCandidate(w, dictionary.getWord(i)))
+				candidate[totCandidates++] = dictionary.getWord(i);
+		return candidate;
 	}
 
 	/**
 	 * Check if Word w is a candidate anagram for Word anag A candidate word is
 	 * not necessarily a valid candidate word
 	 * 
-	 * @param w
-	 *            a word in the dictionary
-	 * @param target
-	 *            the input word
-	 * @return Return true if Word w is a candidate anagram, return false
-	 *         otherwise
+	 * @param w a word in the dictionary
+	 * @param target the input word
+	 * @return true if Word w is a candidate anagram, return false otherwise
 	 */
 	private boolean isCandidate(Word target, Word w) {
 		return isWord(w) && validLength(target, w) && (fewerOfEachLetter(target, w));
@@ -134,26 +129,22 @@ public class Anagram {
 	 * Check if the Word w in the Dictionary has the valid length that enable it
 	 * to form an anagram
 	 * 
-	 * @param target
-	 *            the word that need to find an anagram
-	 * @param w
-	 *            the word parsed from the file
-	 * @return return true if the Word w has a valid length such that it's a
+	 * @param target the word that need to find an anagram
+	 * @param w the word parsed from the file
+	 * @return true if the Word w has a valid length such that it's a
 	 *         candidate of the anagram of target.
 	 */
 	private boolean validLength(Word target, Word w) {
-		return w.wordLen + MinimumLength <= target.wordLen || w.wordLen == target.wordLen;
+		return w.getLength() + minimumLength <= target.getLength() || w.getLength() == target.getLength();
 	}
 
 	/**
-	 * Check if Word w is a word
-	 * 
-	 * @param w
-	 *            the word parsed from the file
-	 * @return return true if Word w is a word
+	 * Check if Word w is a word greater than the minLength
+	 * @param w the word parsed from the file
+	 * @return true if Word w is a word
 	 */
 	private boolean isWord(Word w) {
-		return w.wordLen >= MinimumLength;
+		return w.getLength() >= minimumLength;
 	}
 
 	/**
@@ -180,7 +171,7 @@ public class Anagram {
 	private void PrintCandidate() {
 		System.out.println("Candiate words:");
 		for (int i = 0; i < totCandidates; i++)
-			System.out.print(Candidate[i].aword + ", " + ((i % 4 == 3) ? "\n" : " "));
+			System.out.print(candidate[i].getString() + ", " + ((i % 4 == 3) ? "\n" : " "));
 		System.out.println("");
 		System.out.println();
 	}
@@ -198,22 +189,22 @@ public class Anagram {
 
 		Word WordToPass = new Word("");
 		for (int i = StartAt; i < EndAt; i++) {
-			boolean valid = validCandidate(anag, Candidate[i]);
+			boolean valid = validCandidate(anag, candidate[i]);
 			if (valid) {
-				WordArray[Level] = Candidate[i].aword;
+				WordArray[Level] = candidate[i].getString();
 
 				for (int j = 25; j >= 0; j--) {
-					WordToPass.count[j] = (byte) (anag.count[j] - Candidate[i].count[j]);
+					WordToPass.count[j] = (byte) (anag.count[j] - candidate[i].count[j]);
 					if (WordToPass.count[j] != 0) {
-						WordToPass.wordLen += WordToPass.count[j];
+						WordToPass.setLength(WordToPass.getLength() + WordToPass.count[j]);
 					}
 				}
-				if (WordToPass.wordLen == 0) {
+				if (WordToPass.getLength() == 0) {
 					/* Found a series of words! */
 					for (int j = 0; j <= Level; j++)
 						System.out.print(WordArray[j] + " ");
 					System.out.println();
-				} else if (WordToPass.wordLen < MinimumLength) {
+				} else if (WordToPass.getLength() < minimumLength) {
 					; /* Don't call again */
 				} else {
 					FindAnagram(WordToPass, WordArray, Level + 1, i, totCandidates);
@@ -287,7 +278,7 @@ public class Anagram {
 		int[] MasterCount = new int[26];
 		for (int ind = totCandidates - 1; ind >= 0; ind--) {
 			for (int l = 25; l >= 0; l--) {
-				MasterCount[l] = Candidate[ind].count[l];
+				MasterCount[l] = candidate[ind].count[l];
 			}
 		}
 		return MasterCount;
@@ -305,7 +296,7 @@ public class Anagram {
 	private int getRootIndex(int LeastCommonLetter) {
 		int rootIndexEnd = 0;
 		while (rootIndexEnd < totCandidates) {
-			if (Candidate[rootIndexEnd++].containsLetter(LeastCommonLetter)) {
+			if (candidate[rootIndexEnd++].containsLetter(LeastCommonLetter)) {
 				break;
 			}
 		}
@@ -344,9 +335,9 @@ public class Anagram {
 	 */
 	private int partition(int hi, int lo, int LeastCommonLetter) {
 		int last = hi;
-		Word pivot = Candidate[hi];
+		Word pivot = candidate[hi];
 		for (int i = hi + 1; i <= lo; i++) { /* partition */
-			boolean lessThanPivot = Candidate[i].MultiFieldCompare(pivot, LeastCommonLetter) == -1;
+			boolean lessThanPivot = candidate[i].MultiFieldCompare(pivot, LeastCommonLetter) == -1;
 			if (lessThanPivot) {
 				last++;
 				swap(last, i);
@@ -365,10 +356,12 @@ public class Anagram {
 	 *            index d2
 	 */
 	private void swap(int d1, int d2) {
-		Word tmp = Candidate[d1];
-		Candidate[d1] = Candidate[d2];
-		Candidate[d2] = tmp;
+		Word tmp = candidate[d1];
+		candidate[d1] = candidate[d2];
+		candidate[d2] = tmp;
 	}
+	
+	
 	
 	private boolean wellFormed(Anagram testAnagram) 
 	{

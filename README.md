@@ -40,4 +40,8 @@ Added access types to variables in anagrams, Word, and WordList
 
 Replaced references to totalWords in WordList with a getter method in WordList.
 
+Renamed anagram class to Anagram
 
+Made first letter of variables in Anagram lowercase
+
+Made wordLen and aword in Word class private and added getter/setter methods where necessary.

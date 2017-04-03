@@ -98,6 +98,7 @@ public class Word  {
 		return (aword).compareTo(t.aword);
 	}
 	
+	
 	public boolean wellFormed()
 	{
 		

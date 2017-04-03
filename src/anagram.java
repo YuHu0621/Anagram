@@ -12,7 +12,7 @@ public class Anagram {
 	public static Word[] candidate;
 	private int minimumLength;
 	private static int totCandidates = 0;
-	public Word anag;
+	private Word anag;
 
 	/**
 	 * Constructor for anagram that only takes in a string
@@ -159,7 +159,7 @@ public class Anagram {
 	 */
 	private boolean fewerOfEachLetter(Word target, Word w) {
 		for (int i = 25; i >= 0; i--) {
-			if (w.count[i] > target.count[i])
+			if (w.getCount(i) > target.getCount(i))
 				return false;
 		}
 		return true;
@@ -170,8 +170,9 @@ public class Anagram {
 	 */
 	private void PrintCandidate() {
 		System.out.println("Candiate words:");
-		for (int i = 0; i < totCandidates; i++)
+		for (int i = 0; i < totCandidates; i++){
 			System.out.print(candidate[i].getString() + ", " + ((i % 4 == 3) ? "\n" : " "));
+		}
 		System.out.println("");
 		System.out.println();
 	}
@@ -192,21 +193,19 @@ public class Anagram {
 			boolean valid = validCandidate(anag, candidate[i]);
 			if (valid) {
 				WordArray[Level] = candidate[i].getString();
-
 				for (int j = 25; j >= 0; j--) {
-					WordToPass.count[j] = (byte) (anag.count[j] - candidate[i].count[j]);
-					if (WordToPass.count[j] != 0) {
-						WordToPass.setLength(WordToPass.getLength() + WordToPass.count[j]);
+					WordToPass.setCount(j, (byte) (anag.getCount(j) - candidate[i].getCount(j)));
+					if (WordToPass.getCount(j) != 0) {
+						WordToPass.setLength(WordToPass.getLength() + WordToPass.getCount(j));
 					}
 				}
 				if (WordToPass.getLength() == 0) {
 					/* Found a series of words! */
-					for (int j = 0; j <= Level; j++)
+					for (int j = 0; j <= Level; j++){
 						System.out.print(WordArray[j] + " ");
+					}
 					System.out.println();
-				} else if (WordToPass.getLength() < minimumLength) {
-					; /* Don't call again */
-				} else {
+				} else if (WordToPass.getLength() >= minimumLength) {
 					FindAnagram(WordToPass, WordArray, Level + 1, i, totCandidates);
 				}
 			}
@@ -222,7 +221,7 @@ public class Anagram {
 	private boolean validCandidate(Word anag, Word candidate) {
 
 		for (int j = 25; j >= 0; j--) {
-			if (anag.count[j] < candidate.count[j]) {
+			if (anag.getCount(j) < candidate.getCount(j)) {
 				return false;
 			}
 		}

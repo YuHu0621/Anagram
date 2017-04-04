@@ -57,6 +57,10 @@ public class Word  {
 		return count[index];
 	}
 	
+	public int[] getTotalCount(){
+		return count;
+	}
+	
 	/**
 	 * Setter to set the count of a letter to a new value
 	 * @param index of letter

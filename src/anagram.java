@@ -43,7 +43,8 @@ public class Anagram {
 		anag = new Word(a);
 		minimumLength = minLen;
 		dictionary = new WordList("words.txt");
-		candidate = new Word[WordList.MAXWORDS];
+		//candidate = new Word[WordList.MAXWORDS];
+		candidate = new ArrayList<Word>();
 		assert wellFormed();
 	}
 

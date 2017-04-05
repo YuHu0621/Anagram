@@ -8,6 +8,7 @@ import java.io.*;
 public class WordList {
 	public static final int MAXWORDS = 100000;
 	public static final int MAXWORDLEN = 30;
+	public static final int EOF = -1;
 	public static Word[] dictionary = new Word[MAXWORDS];
 	public static int totalWords = 0;
 
@@ -35,11 +36,11 @@ public class WordList {
 		char word[] = new char[MAXWORDLEN];
 		String s;
 		int r = 0;
-		while (r!=-1) {
+		while (r!=EOF) {
 			int wordLen = 0;
 			try {
 				// read a word in from the word file
-				while ((r=fis.read()) != -1 ) {
+				while ((r=fis.read()) != EOF ) {
 					if ( r == '\n' ) 
 						break;
 					word[wordLen++] = (char) r;

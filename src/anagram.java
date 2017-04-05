@@ -78,11 +78,11 @@ public class Anagram {
 		generateCandidates();
 		printCandidate();
 
-		int RootIndexEnd = sortCandidates();
+//		int RootIndexEnd = sortCandidates();
 
 		System.out.println("Anagrams of " + anag.getString() + ":");
 		//FindAnagram(anag.getTotalCount(), new String[50], 0, 0, RootIndexEnd);
-		FindAnagram(anag, RootIndexEnd);
+		FindAnagram();
 		System.out.println("----" + anag.getString() + "----");
 	}
 
@@ -207,7 +207,8 @@ public class Anagram {
 	 * @param anag the anagram word
 	 * @param RootEndIndex the index of the candidate word that contains the leastCommonLetter
 	 */
-	private void FindAnagram(Word anag, int RootEndIndex){
+	private void FindAnagram(){
+		int RootEndIndex = sortCandidates();
 		FindAnagram(anag.getTotalCount(), new String[50], 0, 0, RootEndIndex);
 	}
 	

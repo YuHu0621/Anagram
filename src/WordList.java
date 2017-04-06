@@ -12,14 +12,27 @@ public class WordList {
 	public static Word[] dictionary = new Word[MAXWORDS];
 	public static int totalWords = 0;
 
+	/**
+	 * constructor
+	 * @param s filename
+	 */
 	public WordList(String s){
 		ReadDict(s);
 	}
 	
+	/**
+	 * get word at index i
+	 * @param i index i
+	 * @return word at index i
+	 */
 	public Word getWord(int i){
 		return dictionary[i];
 	}
 	
+	/**
+	 * parse file to turn them into word
+	 * @param f file name
+	 */
 	@SuppressWarnings("resource")
 	public static void ReadDict (String f) {
 
@@ -58,6 +71,10 @@ public class WordList {
 		System.err.println("main dictionary has " + totalWords + " entries.");
 	}
 	
+	/**
+	 * get the total number of word
+	 * @return return the total number of word
+	 */
 	public int getTotalWords()
 	{
 		return totalWords;

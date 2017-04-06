@@ -77,11 +77,7 @@ public class Anagram {
 	public void DoAnagrams() {
 		generateCandidates();
 		printCandidate();
-
-//		int RootIndexEnd = sortCandidates();
-
 		System.out.println("Anagrams of " + anag.getString() + ":");
-		//FindAnagram(anag.getTotalCount(), new String[50], 0, 0, RootIndexEnd);
 		FindAnagram();
 		System.out.println("----" + anag.getString() + "----");
 	}
@@ -168,39 +164,7 @@ public class Anagram {
 		System.out.println("");
 		System.out.println();
 	}
-//
-//	/**
-//	 * find the anagram of the input word
-//	 * 
-//	 * @param anagram
-//	 * @param WordArray
-//	 * @param Level
-//	 * @param StartAt
-//	 * @param EndAt
-//	 */
-//	private void FindAnagram(Word anagram, String[] WordArray, int Level, int StartAt, int EndAt) {
-//
-//		Word WordToPass = new Word("");
-//		for (int i = StartAt; i < EndAt; i++) {
-//			Word word = candidate[i];
-//			boolean valid = validCandidate(anagram, word);
-//			if (valid) {
-//				WordArray[Level] = word.getString();
-//				for (int j = 0; j < 26; j++) {
-//					WordToPass.setCount(j, (byte) (anagram.getCount(j) - word.getCount(j)));
-//				}
-//				if (WordToPass.getLength() == 0) {
-//					/* Found a series of words! */
-//					for (int j = 0; j <= Level; j++) {
-//						System.out.print(WordArray[j] + " ");
-//					}
-//					System.out.println();
-//				} else if (WordToPass.getLength() >= minimumLength) {
-//					FindAnagram(WordToPass, WordArray, Level + 1, i, totCandidates);
-//				}
-//			}
-//		}
-//	}
+
 
 	/**
 	 * FindAnagram calls the recursive helper method
@@ -367,7 +331,7 @@ public class Anagram {
 		int last = hi;
 		Word pivot = candidate[hi];
 		for (int i = hi + 1; i <= lo; i++) { /* partition */
-			boolean lessThanPivot = candidate[i].MultiFieldCompare(pivot, LeastCommonLetter) == -1;
+			boolean lessThanPivot = candidate[i].multiFieldCompare(pivot, LeastCommonLetter) == -1;
 			if (lessThanPivot) {
 				last++;
 				swap(last, i);

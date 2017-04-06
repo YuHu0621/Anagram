@@ -93,7 +93,7 @@ public class Word  {
 		return aword;
 	}
 	
-	public int MultiFieldCompare(Word t, int LeastCommonIndex)
+	public int multiFieldCompare(Word t, int LeastCommonIndex)
 	{
 		if ( (containsLetter(LeastCommonIndex) ) &&  !(t.containsLetter(LeastCommonIndex)) )
 			return 1;
@@ -119,8 +119,6 @@ public class Word  {
 			return false;
 		}
 		//TODO: mess with string later
-		
-		
 		return true;
 	}
 	

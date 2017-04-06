@@ -1,7 +1,7 @@
 /**
  * Word class stores information for every word
  * including the number of each letter in a word, the number of letters in a word, and the word itself 
- * @author yuhu
+ * @author yuhu and kat
  *
  */
 public class Word  {

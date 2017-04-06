@@ -11,7 +11,7 @@ public class Word  {
 
 	/**
 	 * Constructor that takes in a string
-	 * @param s
+	 * @param s the word
 	 */
 	public Word(String s) { // construct an entry from a string
 		String str = s.toLowerCase();
@@ -26,17 +26,8 @@ public class Word  {
 			}
 		}
 		assert wellFormed();
-		
 	}
 	
-	public Word() {
-		aword = "";
-		wordLen = 0;
-		for (int i = 0; i < 26; i++) {
-			count[i] = 0;
-		}
-		assert wellFormed();
-	}
 	
 	/**
 	* Method to determine if a word contains a specific letter
@@ -57,6 +48,10 @@ public class Word  {
 		return count[index];
 	}
 	
+	/**
+	 * Getter to return the count array of a letter at every index
+	 * @return array of count of letters from A-Z
+	 */
 	public int[] getTotalCount(){
 		return count;
 	}
@@ -93,12 +88,12 @@ public class Word  {
 		return aword;
 	}
 	
-	public int multiFieldCompare(Word t, int LeastCommonIndex)
+	public int multiFieldCompare(Word t, int leastCommonIndex)
 	{
-		if ( (containsLetter(LeastCommonIndex) ) &&  !(t.containsLetter(LeastCommonIndex)) )
+		if ( (containsLetter(leastCommonIndex) ) &&  !(t.containsLetter(leastCommonIndex)) )
 			return 1;
 		
-		if ( !(containsLetter(LeastCommonIndex) ) &&  (t.containsLetter(LeastCommonIndex)) )
+		if ( !(containsLetter(leastCommonIndex) ) &&  (t.containsLetter(leastCommonIndex)) )
 			return -1;
 		
 		if ( t.wordLen != wordLen )
@@ -118,7 +113,22 @@ public class Word  {
 		if(sumCounts != wordLen) {
 			return false;
 		}
-		//TODO: mess with string later
+		//make sure the wordLen is equal to the length of the string aword
+		if(wordLen != aword.length()){
+			return false;
+		}
+		//make sure the letter is counted, and no letter is counted as 0
+		for(int i = 0; i < 26; i++){
+			if(!aword.contains(Character.toString((char) (i + 'a')))){
+				if(count[i]!= 0){
+					return false;
+				}
+			}else{
+				if(count[i]== 0){
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 	

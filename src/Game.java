@@ -27,7 +27,7 @@ public class Game {
 			myAnagram = new Anagram(argv[0], minLen, argv[2]);
 		}
 
-		myAnagram.DoAnagrams();
+		myAnagram.doAnagram();
 	}
 
 }

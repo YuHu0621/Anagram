@@ -67,7 +67,7 @@ public class Anagram {
 	 * 
 	 * @param anag the input string
 	 */
-	public void DoAnagrams() {
+	public void doAnagram() {
 		generateCandidates();
 		printCandidate();
 		System.out.println("Anagrams of " + anag.getString() + ":");
@@ -94,8 +94,7 @@ public class Anagram {
 	 * Check if Word w is a candidate anagram for Word anag A candidate word is
 	 * not necessarily a valid candidate word
 	 * 
-	 * @param w
-	 *            a word in the dictionary
+	 * @param w a word in the dictionary
 	 * @return true if Word w is a candidate anagram, return false otherwise
 	 */
 	private boolean isCandidate(Word w) {
@@ -106,10 +105,8 @@ public class Anagram {
 	 * Check if the Word w in the Dictionary has the valid length that enable it
 	 * to form an anagram
 	 * 
-	 * @param target
-	 *            the word that need to find an anagram
-	 * @param w
-	 *            the word parsed from the file
+	 * @param target the word that need to find an anagram
+	 * @param w the word parsed from the file
 	 * @return true if the Word w has a valid length such that it's a candidate
 	 *         of the anagram of target.
 	 */
@@ -120,8 +117,7 @@ public class Anagram {
 	/**
 	 * Check if Word w is a word greater than the minLength
 	 * 
-	 * @param w
-	 *            the word parsed from the file
+	 * @param w the word parsed from the file
 	 * @return true if Word w is a word
 	 */
 	private boolean isWord(Word w) {
@@ -131,10 +127,8 @@ public class Anagram {
 	/**
 	 * Check if the Word w has fewer number of each letter than Word target
 	 * 
-	 * @param target
-	 *            the word that needs to find an anagram
-	 * @param w
-	 *            the word parsed from the file
+	 * @param target the word that needs to find an anagram
+	 * @param w the word parsed from the file
 	 * @return true if Word w has fewer of each letter than the target Word
 	 *         target
 	 */

@@ -2,7 +2,7 @@ import java.io.*;
 
 /**
  * WordList class is a fileparser class that read a txt file and stores all the word into a Dictionary array
- * @author yuhu
+ * @author yuhu and kat
  *
  */
 public class WordList {
